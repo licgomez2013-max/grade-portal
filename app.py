@@ -329,3 +329,9 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+    @app.route("/delete/<int:record_id>")
+def delete_record(record_id):
+    record = Grade.query.get_or_404(record_id)
+    db.session.delete(record)
+    db.session.commit()
+    return redirect(url_for("report"))
